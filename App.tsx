@@ -8,7 +8,6 @@ import NewsSection from './components/NewsSection';
 import Footer from './components/Footer';
 import Dashboard from './components/admin/Dashboard';
 import { DataProvider } from './contexts/DataContext';
-import { Lock } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -45,19 +44,12 @@ const App: React.FC = () => {
           <SermonSection />
           <NewsSection />
         </main>
-        <Footer />
-        
-        {/* Hidden Admin Trigger */}
-        <div className="fixed bottom-4 right-4 z-50 opacity-20 hover:opacity-100 transition-opacity">
-          <button onClick={() => setShowLogin(true)} className="bg-slate-800 text-white p-2 rounded-full shadow-lg">
-            <Lock size={16} />
-          </button>
-        </div>
+        <Footer onOpenLogin={() => setShowLogin(true)} />
 
         {/* Login Modal */}
         {showLogin && (
           <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4">
-            <div className="bg-white p-8 rounded-sm max-w-sm w-full relative">
+            <div className="bg-white p-8 rounded-sm max-w-sm w-full relative animate-fade-in-up">
               <button 
                 onClick={() => setShowLogin(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -73,12 +65,12 @@ const App: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
-                    placeholder="Enter admin password"
+                    placeholder="Masukkan password admin"
                     autoFocus
                   />
-                  <p className="text-xs text-gray-400 mt-2">Hint: admin123</p>
+                  <p className="text-xs text-gray-400 mt-2">Default: admin123</p>
                 </div>
-                <button className="w-full bg-gkps-blue text-white py-2 rounded-sm font-bold hover:bg-blue-900">
+                <button className="w-full bg-gkps-blue text-white py-2 rounded-sm font-bold hover:bg-blue-900 transition-colors">
                   Masuk Dashboard
                 </button>
               </form>

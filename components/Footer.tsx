@@ -1,7 +1,11 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Lock } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenLogin: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
   return (
     <footer id="contact" className="bg-slate-900 text-white border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -66,7 +70,16 @@ const Footer: React.FC = () => {
       <div className="bg-black py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
           <p>&copy; {new Date().getFullYear()} GKPS Tangerang. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">Design inspired by GRII Pusat & GKPS Org</p>
+          <div className="flex items-center gap-4 mt-2 md:mt-0">
+             <p>Design inspired by GRII Pusat & GKPS Org</p>
+             <span className="text-slate-700">|</span>
+             <button 
+                onClick={onOpenLogin}
+                className="flex items-center hover:text-gkps-gold transition-colors"
+             >
+               <Lock size={12} className="mr-1" /> Login Pengurus
+             </button>
+          </div>
         </div>
       </div>
     </footer>
