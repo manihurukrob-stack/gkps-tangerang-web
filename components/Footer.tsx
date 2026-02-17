@@ -1,11 +1,14 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Lock } from 'lucide-react';
+import { useData } from '../contexts/DataContext';
 
 interface FooterProps {
   onOpenLogin: () => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
+  const { contactData } = useData();
+
   return (
     <footer id="contact" className="bg-slate-900 text-white border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -42,15 +45,15 @@ const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-3 mt-0.5 text-gkps-red" />
-                <span>Jl. Teuku Umar No. XX, Karawaci, Tangerang, Banten 15115</span>
+                <span>{contactData.address}</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="mr-3 text-gkps-red" />
-                <span>(021) 555-XXXX</span>
+                <span>{contactData.phone}</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-3 text-gkps-red" />
-                <span>sekretariat@gkpstangerang.org</span>
+                <span>{contactData.email}</span>
               </li>
             </ul>
           </div>
@@ -59,9 +62,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
           <div className="bg-slate-800 p-6 rounded-sm">
             <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4">Ayat Harian</h4>
             <blockquote className="text-slate-400 italic font-serif leading-relaxed text-sm">
-              "Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu."
+              {contactData.dailyVerse}
             </blockquote>
-            <p className="text-gkps-gold mt-4 text-xs font-bold text-right">— Matius 6:33</p>
+            <p className="text-gkps-gold mt-4 text-xs font-bold text-right">— {contactData.dailyVerseRef}</p>
           </div>
 
         </div>

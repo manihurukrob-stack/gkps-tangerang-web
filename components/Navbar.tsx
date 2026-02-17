@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Church } from 'lucide-react';
-import { NAV_ITEMS } from '../constants';
+import { useData } from '../contexts/DataContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { navItems } = useData();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,9 +40,9 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item, index) => (
               <a
-                key={item.label}
+                key={index}
                 href={item.href}
                 className={`text-sm font-medium tracking-wide transition-colors duration-200 uppercase font-sans
                   ${isScrolled 
@@ -70,9 +71,9 @@ const Navbar: React.FC = () => {
       {isOpen && (
         <div className="md:hidden bg-white shadow-xl absolute w-full border-t border-gray-100">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item, index) => (
               <a
-                key={item.label}
+                key={index}
                 href={item.href}
                 className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-gkps-blue hover:bg-gray-50 border-l-4 border-transparent hover:border-gkps-blue transition-all"
                 onClick={() => setIsOpen(false)}

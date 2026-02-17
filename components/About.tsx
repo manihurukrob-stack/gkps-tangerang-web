@@ -1,6 +1,9 @@
 import React from 'react';
+import { useData } from '../contexts/DataContext';
 
 const About: React.FC = () => {
+  const { aboutData } = useData();
+
   return (
     <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,23 +15,19 @@ const About: React.FC = () => {
               Tentang GKPS Tangerang
             </h2>
             <h3 className="text-4xl font-serif font-bold text-slate-900 leading-tight">
-              Membangun Iman, <br />
-              Merawat Persekutuan
+              {aboutData.title}
             </h3>
-            <p className="text-slate-600 leading-relaxed font-light text-lg">
-              GKPS Tangerang hadir sebagai wadah persekutuan umat Tuhan yang berakar pada tradisi Simalungun namun terbuka bagi kemajemukan di tengah kota Tangerang. Kami berkomitmen untuk memberitakan Injil Kristus melalui ibadah yang khidmat, pengajaran yang alkitabiah, dan pelayanan kasih yang nyata.
-            </p>
-            <p className="text-slate-600 leading-relaxed">
-              Sebagai bagian dari tubuh Kristus, kami mengundang Anda untuk bertumbuh bersama kami, menemukan panggilan pelayanan, dan menjadi berkat bagi kota dan bangsa.
+            <p className="text-slate-600 leading-relaxed font-light text-lg whitespace-pre-wrap">
+              {aboutData.description}
             </p>
             
             <div className="pt-6 grid grid-cols-2 gap-8">
               <div>
-                <h4 className="text-3xl font-serif font-bold text-gkps-gold">1985</h4>
+                <h4 className="text-3xl font-serif font-bold text-gkps-gold">{aboutData.foundedYear}</h4>
                 <p className="text-sm text-slate-500 mt-1">Tahun Berdiri</p>
               </div>
               <div>
-                <h4 className="text-3xl font-serif font-bold text-gkps-gold">500+</h4>
+                <h4 className="text-3xl font-serif font-bold text-gkps-gold">{aboutData.familyCount}</h4>
                 <p className="text-sm text-slate-500 mt-1">Kepala Keluarga</p>
               </div>
             </div>
@@ -39,7 +38,7 @@ const About: React.FC = () => {
             <div className="absolute -top-4 -right-4 w-2/3 h-full border-2 border-gkps-gold/30 rounded-sm z-0"></div>
             <div className="relative z-10 overflow-hidden rounded-sm shadow-2xl">
               <img 
-                src="https://picsum.photos/800/1000?random=10" 
+                src={aboutData.imageUrl} 
                 alt="Community Gathering" 
                 className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
               />

@@ -18,24 +18,36 @@ const NewsSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {news.map((item) => (
-            <div key={item.id} className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-all duration-300">
-              <div className="flex justify-between items-start mb-4">
-                <span className="px-3 py-1 bg-gkps-blue text-xs font-bold uppercase tracking-wider rounded-sm text-white">
-                  {item.category}
-                </span>
-                <span className="text-sm text-gray-400 font-mono">
-                  {item.date}
-                </span>
+            <div key={item.id} className="bg-white/5 border border-white/10 rounded-sm hover:bg-white/10 transition-all duration-300 flex flex-col h-full overflow-hidden">
+              {item.imageUrl && (
+                <div className="h-48 w-full">
+                  <img 
+                    src={item.imageUrl} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
+                  />
+                </div>
+              )}
+              
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex justify-between items-start mb-4">
+                  <span className="px-3 py-1 bg-gkps-blue text-xs font-bold uppercase tracking-wider rounded-sm text-white">
+                    {item.category}
+                  </span>
+                  <span className="text-sm text-gray-400 font-mono">
+                    {item.date}
+                  </span>
+                </div>
+                <h3 className="text-xl font-serif font-bold text-gray-100 mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1 line-clamp-4">
+                  {item.content}
+                </p>
+                <a href="#read-more" className="text-gkps-gold text-sm font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center mt-auto">
+                  Selengkapnya <span className="ml-2">&rarr;</span>
+                </a>
               </div>
-              <h3 className="text-xl font-serif font-bold text-gray-100 mb-4">
-                {item.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                {item.content}
-              </p>
-              <a href="#read-more" className="text-gkps-gold text-sm font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center">
-                Selengkapnya <span className="ml-2">&rarr;</span>
-              </a>
             </div>
           ))}
         </div>

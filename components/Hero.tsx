@@ -1,13 +1,16 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useData } from '../contexts/DataContext';
 
 const Hero: React.FC = () => {
+  const { heroData } = useData();
+
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://picsum.photos/1920/1080?grayscale&blur=2"
+          src={heroData.bgImageUrl}
           alt="Church Interior"
           className="w-full h-full object-cover"
         />
@@ -18,17 +21,17 @@ const Hero: React.FC = () => {
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-8">
         <div className="space-y-4 animate-fade-in-up">
           <p className="text-gkps-gold font-sans font-medium tracking-[0.2em] uppercase text-sm md:text-base">
-            Syalom, Selamat Datang di Website Resmi
+            {heroData.welcomeText}
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight">
-            Gereja Kristen Protestan <br />
-            <span className="italic font-light">Simalungun</span> Tangerang
+            {heroData.title} <br />
+            <span className="italic font-light">{heroData.subtitle}</span>
           </h1>
           <div className="h-1 w-24 bg-gkps-gold mx-auto my-6"></div>
           <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            "Sebab di mana dua atau tiga orang berkumpul dalam nama-Ku, di situ Aku ada di tengah-tengah mereka."
+            {heroData.verseText}
             <br />
-            <span className="text-sm mt-2 block font-medium opacity-75">— Matius 18:20</span>
+            <span className="text-sm mt-2 block font-medium opacity-75">— {heroData.verseReference}</span>
           </p>
         </div>
 
