@@ -1,4 +1,4 @@
-import { NavItem, ServiceSchedule, Sermon, NewsItem } from './types';
+import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData } from './types';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Beranda', href: '#home' },
@@ -93,3 +93,28 @@ export const NEWS_ITEMS: NewsItem[] = [
     content: "Pendaftaran kelas katekisasi sidi tahun ajaran baru telah dibuka. Hubungi sekretariat gereja untuk formulir pendaftaran."
   }
 ];
+
+export const DEFAULT_HERO: HeroData = {
+  welcomeText: "Syalom, Selamat Datang di Website Resmi",
+  title: "Gereja Kristen Protestan",
+  subtitle: "Simalungun Tangerang",
+  verseText: "\"Sebab di mana dua atau tiga orang berkumpul dalam nama-Ku, di situ Aku ada di tengah-tengah mereka.\"",
+  verseReference: "Matius 18:20",
+  bgImageUrl: "https://picsum.photos/1920/1080?grayscale&blur=2"
+};
+
+export const DEFAULT_ABOUT: AboutData = {
+  title: "Membangun Iman, Merawat Persekutuan",
+  description: "GKPS Tangerang hadir sebagai wadah persekutuan umat Tuhan yang berakar pada tradisi Simalungun namun terbuka bagi kemajemukan di tengah kota Tangerang. Kami berkomitmen untuk memberitakan Injil Kristus melalui ibadah yang khidmat, pengajaran yang alkitabiah, dan pelayanan kasih yang nyata.\n\nSebagai bagian dari tubuh Kristus, kami mengundang Anda untuk bertumbuh bersama kami, menemukan panggilan pelayanan, dan menjadi berkat bagi kota dan bangsa.",
+  foundedYear: "1985",
+  familyCount: "500+",
+  imageUrl: "https://picsum.photos/800/1000?random=10"
+};
+
+export const DEFAULT_CONTACT: ContactData = {
+  address: "Jl. Teuku Umar No. XX, Karawaci, Tangerang, Banten 15115",
+  phone: "(021) 555-XXXX",
+  email: "sekretariat@gkpstangerang.org",
+  dailyVerse: "\"Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.\"",
+  dailyVerseRef: "Matius 6:33"
+};
