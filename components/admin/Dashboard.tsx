@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { Sermon, NewsItem } from '../../types';
-import { LayoutDashboard, BookOpen, Newspaper, LogOut, Plus, Trash2, Upload, X } from 'lucide-react';
+import { BookOpen, Newspaper, LogOut, Plus, Trash2, Upload, X } from 'lucide-react';
 
 interface DashboardProps {
   onLogout: () => void;
