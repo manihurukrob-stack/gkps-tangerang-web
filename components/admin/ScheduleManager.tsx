@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { ServiceSchedule } from '../../types';
-import { Plus, Trash2, Edit2, Check, X, Clock, Calendar } from 'lucide-react';
+import { Plus, Trash2, Edit2, Check, Clock } from 'lucide-react';
 
 const ScheduleManager: React.FC = () => {
   const { schedules, addSchedule, deleteSchedule, updateSchedule } = useData();
