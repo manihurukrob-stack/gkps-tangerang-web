@@ -1,13 +1,13 @@
 
-import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData, CommunityGroup } from './types';
+import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData, CommunityGroup, User } from './types';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Beranda', href: '#home' },
   { label: 'Tentang Kami', href: '#about' },
   { label: 'Jadwal Ibadah', href: '#schedule' },
+  { label: 'Sahabat', href: '#sahabat' }, 
   { label: 'Renungan', href: '#sermons' },
   { label: 'Warta Jemaat', href: '#news' },
-  { label: 'Sahabat', href: '#sahabat' },
   { label: 'Kontak', href: '#contact' },
 ];
 
@@ -101,19 +101,56 @@ export const COMMUNITY_GROUPS: CommunityGroup[] = [
     id: 1,
     name: "Seksi Wanita GKPS",
     description: "Persekutuan kaum ibu yang aktif dalam pelayanan sosial dan paduan suara.",
-    imageUrl: "https://picsum.photos/800/600?random=20"
+    imageUrl: "https://picsum.photos/800/600?random=20",
+    activities: [
+      {
+        id: 101,
+        title: "Kunjungan Kasih ke Panti Asuhan",
+        date: "20 November 2023",
+        category: "Program Kerja",
+        description: "Melaksanakan kunjungan bulanan ke panti asuhan terdekat sebagai wujud pelayanan kasih."
+      },
+      {
+        id: 102,
+        title: "Latihan Paduan Suara Wanita",
+        date: "Setiap Kamis, 17.00 WIB",
+        category: "Jadwal",
+        description: "Persiapan pujian untuk ibadah minggu di Gedung Serbaguna Lt. 2."
+      }
+    ]
   },
   {
     id: 2,
     name: "Seksi Bapa GKPS",
     description: "Wadah pelayanan kaum bapak untuk bertumbuh dalam iman dan kepemimpinan keluarga.",
-    imageUrl: "https://picsum.photos/800/600?random=21"
+    imageUrl: "https://picsum.photos/800/600?random=21",
+    activities: [
+      {
+        id: 201,
+        title: "Seminar: Imam dalam Keluarga",
+        date: "5 Desember 2023",
+        category: "Berita",
+        description: "Seminar khusus bapa untuk memperkuat peran sebagai imam dalam keluarga Kristen."
+      }
+    ]
   },
   {
     id: 3,
     name: "Seksi Pemuda (Namaposo)",
     description: "Generasi penerus gereja yang dinamis, kreatif, dan bersemangat dalam memuji Tuhan.",
-    imageUrl: "https://picsum.photos/800/600?random=22"
+    imageUrl: "https://picsum.photos/800/600?random=22",
+     activities: []
+  }
+];
+
+export const DEFAULT_USERS: User[] = [
+  {
+    id: 1,
+    username: 'admin',
+    password: 'admin123',
+    fullName: 'Super Administrator',
+    role: 'super_admin',
+    isActive: true
   }
 ];
 

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useData } from '../../contexts/DataContext';
 import { Edit2, Check, Plus, Trash2 } from 'lucide-react';
@@ -50,6 +51,7 @@ const NavigationManager: React.FC = () => {
                     value={item.href}
                     onChange={(e) => updateNavItem(index, { ...item, href: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors font-mono text-sm text-gray-600"
+                    placeholder="#section-id"
                   />
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-green-600 flex items-center gap-1 text-xs font-bold">
                       <Check size={14} /> Tersimpan
@@ -78,11 +80,20 @@ const NavigationManager: React.FC = () => {
           </div>
 
           <div className="mt-8 bg-blue-50 p-4 rounded-sm border border-blue-100 text-sm text-blue-800">
-            <strong>Tips:</strong> 
+            <strong>Daftar ID Bagian yang Tersedia:</strong>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 mb-4 font-mono text-xs">
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#home <span className="text-gray-400">(Beranda)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#about <span className="text-gray-400">(Tentang)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#schedule <span className="text-gray-400">(Jadwal)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200 font-bold text-gkps-blue">#sahabat <span className="text-gray-400">(Komunitas)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#sermons <span className="text-gray-400">(Renungan)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#news <span className="text-gray-400">(Warta)</span></div>
+              <div className="bg-white px-2 py-1 rounded border border-blue-200">#contact <span className="text-gray-400">(Kontak)</span></div>
+            </div>
+            <strong>Panduan:</strong> 
             <ul className="list-disc ml-5 mt-2 space-y-1">
-               <li>Perubahan akan langsung tersimpan.</li>
-               <li>Gunakan tanda pagar <code>#</code> untuk link ke bagian dalam halaman (contoh: <code>#contact</code>).</li>
-               <li>Gunakan URL lengkap untuk link keluar (contoh: <code>https://google.com</code>).</li>
+               <li>Salin salah satu kode ID di atas (termasuk tanda pagar <code>#</code>) ke kolom "Link Tujuan".</li>
+               <li>Contoh untuk menu Sahabat: Masukkan <code>#sahabat</code>.</li>
             </ul>
           </div>
       </div>

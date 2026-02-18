@@ -31,14 +31,36 @@ export interface NewsItem {
   imageUrl?: string;
 }
 
+export interface CommunityActivity {
+  id: number;
+  title: string;
+  date: string;
+  category: 'Program Kerja' | 'Berita' | 'Jadwal';
+  description: string;
+}
+
 export interface CommunityGroup {
   id: number;
   name: string;
   description: string;
   imageUrl: string;
+  activities?: CommunityActivity[];
 }
 
-// New Types for Page Content
+// User Management Types
+export type UserRole = 'super_admin' | 'community_admin' | 'content_manager';
+
+export interface User {
+  id: number;
+  username: string;
+  password: string; // Stored as plain text for this frontend-only demo
+  role: UserRole;
+  fullName: string;
+  assignedCommunityId?: number; // Only for community_admin
+  isActive: boolean;
+}
+
+// Page Content Types
 export interface HeroData {
   welcomeText: string;
   title: string;
@@ -72,6 +94,7 @@ export type DataContextType = {
   news: NewsItem[];
   navItems: NavItem[];
   communityGroups: CommunityGroup[];
+  users: User[]; // New
   heroData: HeroData;
   aboutData: AboutData;
   contactData: ContactData;
@@ -90,7 +113,13 @@ export type DataContextType = {
   updateNavItem: (index: number, item: NavItem) => void;
 
   addCommunityGroup: (group: CommunityGroup) => void;
+  updateCommunityGroup: (group: CommunityGroup) => void;
   deleteCommunityGroup: (id: number) => void;
+
+  // New User Management Methods
+  addUser: (user: User) => void;
+  updateUser: (user: User) => void;
+  deleteUser: (id: number) => void;
   
   updateHeroData: (data: HeroData) => void;
   updateAboutData: (data: AboutData) => void;

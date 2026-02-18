@@ -1,7 +1,7 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { ServiceSchedule, Sermon, NewsItem, DataContextType, NavItem, HeroData, AboutData, ContactData, CommunityGroup } from '../types';
-import { SERVICE_SCHEDULES, RECENT_SERMONS, NEWS_ITEMS, NAV_ITEMS, DEFAULT_HERO, DEFAULT_ABOUT, DEFAULT_CONTACT, COMMUNITY_GROUPS } from '../constants';
+import { ServiceSchedule, Sermon, NewsItem, DataContextType, NavItem, HeroData, AboutData, ContactData, CommunityGroup, User } from '../types';
+import { SERVICE_SCHEDULES, RECENT_SERMONS, NEWS_ITEMS, NAV_ITEMS, DEFAULT_HERO, DEFAULT_ABOUT, DEFAULT_CONTACT, COMMUNITY_GROUPS, DEFAULT_USERS } from '../constants';
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
@@ -32,6 +32,12 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return saved ? JSON.parse(saved) : COMMUNITY_GROUPS;
   });
 
+  // --- USER MANAGEMENT STATE ---
+  const [users, setUsers] = useState<User[]>(() => {
+    const saved = localStorage.getItem('gkps_users');
+    return saved ? JSON.parse(saved) : DEFAULT_USERS;
+  });
+
   // --- NEW STATE FOR PAGE CONTENT ---
   const [heroData, setHeroData] = useState<HeroData>(() => {
     const saved = localStorage.getItem('gkps_hero');
@@ -45,7 +51,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const [contactData, setContactData] = useState<ContactData>(() => {
     const saved = localStorage.getItem('gkps_contact');
-    // Merge saved data with defaults to ensure new fields (footerTitle, etc) exist
     return saved ? { ...DEFAULT_CONTACT, ...JSON.parse(saved) } : DEFAULT_CONTACT;
   });
 
@@ -55,6 +60,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => localStorage.setItem('gkps_news', JSON.stringify(news)), [news]);
   useEffect(() => localStorage.setItem('gkps_nav_items', JSON.stringify(navItems)), [navItems]);
   useEffect(() => localStorage.setItem('gkps_community', JSON.stringify(communityGroups)), [communityGroups]);
+  useEffect(() => localStorage.setItem('gkps_users', JSON.stringify(users)), [users]);
   
   useEffect(() => localStorage.setItem('gkps_hero', JSON.stringify(heroData)), [heroData]);
   useEffect(() => localStorage.setItem('gkps_about', JSON.stringify(aboutData)), [aboutData]);
@@ -86,7 +92,17 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const addCommunityGroup = (group: CommunityGroup) => setCommunityGroups([...communityGroups, group]);
+  const updateCommunityGroup = (updatedGroup: CommunityGroup) => {
+    setCommunityGroups(communityGroups.map(g => g.id === updatedGroup.id ? updatedGroup : g));
+  };
   const deleteCommunityGroup = (id: number) => setCommunityGroups(communityGroups.filter(g => g.id !== id));
+
+  // --- USER FUNCTIONS ---
+  const addUser = (user: User) => setUsers([...users, user]);
+  const updateUser = (updatedUser: User) => {
+    setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u));
+  };
+  const deleteUser = (id: number) => setUsers(users.filter(u => u.id !== id));
 
   const updateHeroData = (data: HeroData) => setHeroData(data);
   const updateAboutData = (data: AboutData) => setAboutData(data);
@@ -94,12 +110,13 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   return (
     <DataContext.Provider value={{ 
-      schedules, sermons, news, navItems, communityGroups, heroData, aboutData, contactData,
+      schedules, sermons, news, navItems, communityGroups, users, heroData, aboutData, contactData,
       addSermon, deleteSermon, 
       addNews, deleteNews, 
       addSchedule, deleteSchedule, updateSchedule,
       addNavItem, deleteNavItem, updateNavItem,
-      addCommunityGroup, deleteCommunityGroup,
+      addCommunityGroup, updateCommunityGroup, deleteCommunityGroup,
+      addUser, updateUser, deleteUser,
       updateHeroData, updateAboutData, updateContactData
     }}>
       {children}

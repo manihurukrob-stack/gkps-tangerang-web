@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Church } from 'lucide-react';
 import { useData } from '../contexts/DataContext';
@@ -14,6 +15,26 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Fungsi khusus untuk menangani klik menu agar tidak error di preview
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Jika link adalah anchor link (dimulai dengan #)
+    if (href.startsWith('#')) {
+      e.preventDefault(); // Mencegah browser reload/ubah URL yang bikin error "refused to connect"
+      
+      const elementId = href.substring(1);
+      const element = document.getElementById(elementId);
+      
+      if (element) {
+        // Scroll halus ke elemen tujuan
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false); // Tutup menu mobile jika terbuka
+      } else {
+        console.warn(`Element with id ${elementId} not found`);
+      }
+    }
+    // Jika link eksternal biasa, biarkan default
+  };
 
   return (
     <nav 
@@ -44,7 +65,8 @@ const Navbar: React.FC = () => {
               <a
                 key={index}
                 href={item.href}
-                className={`text-sm font-medium tracking-wide transition-colors duration-200 uppercase font-sans
+                onClick={(e) => handleNavClick(e, item.href)}
+                className={`text-sm font-medium tracking-wide transition-colors duration-200 uppercase font-sans cursor-pointer
                   ${isScrolled 
                     ? 'text-slate-700 hover:text-gkps-red' 
                     : 'text-white/90 hover:text-white hover:underline decoration-gkps-gold decoration-2 underline-offset-4'
@@ -75,8 +97,8 @@ const Navbar: React.FC = () => {
               <a
                 key={index}
                 href={item.href}
-                className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-gkps-blue hover:bg-gray-50 border-l-4 border-transparent hover:border-gkps-blue transition-all"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="block px-3 py-3 text-base font-medium text-slate-700 hover:text-gkps-blue hover:bg-gray-50 border-l-4 border-transparent hover:border-gkps-blue transition-all cursor-pointer"
               >
                 {item.label}
               </a>

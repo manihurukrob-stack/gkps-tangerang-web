@@ -1,36 +1,52 @@
 
 import React, { useState } from 'react';
-import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar, ChevronRight, Users } from 'lucide-react';
+import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar, ChevronRight, Users, UserCog } from 'lucide-react';
 import SermonManager from './SermonManager';
 import NewsManager from './NewsManager';
 import NavigationManager from './NavigationManager';
 import ContentManager from './ContentManager';
 import ScheduleManager from './ScheduleManager';
 import CommunityManager from './CommunityManager';
+import UserManager from './UserManager';
+import { User } from '../../types';
 
 interface DashboardProps {
   onLogout: () => void;
+  currentUser: User;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'sermons' | 'news' | 'navigation' | 'content' | 'schedule' | 'community'>('sermons');
+const Dashboard: React.FC<DashboardProps> = ({ onLogout, currentUser }) => {
+  // Default tab depends on role
+  const [activeTab, setActiveTab] = useState<'sermons' | 'news' | 'navigation' | 'content' | 'schedule' | 'community' | 'users'>(
+    currentUser.role === 'community_admin' ? 'community' : 'sermons'
+  );
 
-  const menuItems = [
-    { id: 'sermons', label: 'Manajemen Khotbah', icon: BookOpen },
-    { id: 'news', label: 'Warta Jemaat', icon: Newspaper },
-    { id: 'content', label: 'Halaman Utama', icon: Layout },
-    { id: 'schedule', label: 'Jadwal Ibadah', icon: Calendar },
-    { id: 'community', label: 'Manajemen Sahabat', icon: Users },
-    { id: 'navigation', label: 'Navigasi Menu', icon: MenuIcon },
+  const isSuperAdmin = currentUser.role === 'super_admin';
+
+  // Define menus based on role
+  const allMenuItems = [
+    { id: 'sermons', label: 'Manajemen Khotbah', icon: BookOpen, roles: ['super_admin', 'content_manager'] },
+    { id: 'news', label: 'Warta Jemaat', icon: Newspaper, roles: ['super_admin', 'content_manager'] },
+    { id: 'content', label: 'Halaman Utama', icon: Layout, roles: ['super_admin', 'content_manager'] },
+    { id: 'schedule', label: 'Jadwal Ibadah', icon: Calendar, roles: ['super_admin', 'content_manager'] },
+    { id: 'community', label: 'Manajemen Sahabat', icon: Users, roles: ['super_admin', 'community_admin', 'content_manager'] },
+    { id: 'users', label: 'Manajemen User', icon: UserCog, roles: ['super_admin'] },
+    { id: 'navigation', label: 'Navigasi Menu', icon: MenuIcon, roles: ['super_admin'] },
   ];
+
+  const menuItems = allMenuItems.filter(item => item.roles.includes(currentUser.role));
 
   return (
     <div className="min-h-screen bg-slate-50 flex font-sans">
       {/* Sidebar */}
       <aside className="w-64 bg-[#1e3a8a] text-white flex flex-col fixed h-full z-20 shadow-xl">
-        <div className="h-20 flex flex-col justify-center px-6 border-b border-blue-800 bg-blue-900/20">
+        <div className="h-24 flex flex-col justify-center px-6 border-b border-blue-800 bg-blue-900/20">
           <h2 className="text-xl font-serif font-bold tracking-wide text-white">Admin Panel</h2>
           <p className="text-[10px] uppercase tracking-widest text-blue-200 mt-1">GKPS Tangerang</p>
+          <div className="mt-3 flex items-center gap-2">
+             <div className="w-2 h-2 rounded-full bg-green-400"></div>
+             <p className="text-xs font-bold text-blue-100 truncate w-40">{currentUser.fullName}</p>
+          </div>
         </div>
         
         <nav className="flex-1 py-6 space-y-1 overflow-y-auto">
@@ -71,12 +87,14 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
       {/* Main Content */}
       <main className="flex-1 ml-64 p-8 lg:p-12">
         <div className="max-w-7xl mx-auto">
-          {activeTab === 'sermons' && <SermonManager />}
-          {activeTab === 'news' && <NewsManager />}
-          {activeTab === 'content' && <ContentManager />}
-          {activeTab === 'schedule' && <ScheduleManager />}
-          {activeTab === 'community' && <CommunityManager />}
-          {activeTab === 'navigation' && <NavigationManager />}
+          {/* Conditional Rendering based on Role & Active Tab */}
+          {activeTab === 'sermons' && (isSuperAdmin || currentUser.role === 'content_manager') && <SermonManager />}
+          {activeTab === 'news' && (isSuperAdmin || currentUser.role === 'content_manager') && <NewsManager />}
+          {activeTab === 'content' && (isSuperAdmin || currentUser.role === 'content_manager') && <ContentManager />}
+          {activeTab === 'schedule' && (isSuperAdmin || currentUser.role === 'content_manager') && <ScheduleManager />}
+          {activeTab === 'community' && <CommunityManager currentUser={currentUser} />}
+          {activeTab === 'users' && isSuperAdmin && <UserManager />}
+          {activeTab === 'navigation' && isSuperAdmin && <NavigationManager />}
         </div>
       </main>
     </div>
