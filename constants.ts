@@ -1,6 +1,9 @@
 
 import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData, CommunityGroup, User } from './types';
 
+// Tingkatkan versi ini setiap kali ada perubahan struktur data besar
+export const APP_VERSION = '2.1.0';
+
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Beranda', href: '#home' },
   { label: 'Tentang Kami', href: '#about' },

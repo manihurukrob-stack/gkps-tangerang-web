@@ -9,6 +9,7 @@ import ScheduleManager from './ScheduleManager';
 import CommunityManager from './CommunityManager';
 import UserManager from './UserManager';
 import { User } from '../../types';
+import { APP_VERSION } from '../../constants';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -42,7 +43,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout, currentUser }) => {
       <aside className="w-64 bg-[#1e3a8a] text-white flex flex-col fixed h-full z-20 shadow-xl">
         <div className="h-24 flex flex-col justify-center px-6 border-b border-blue-800 bg-blue-900/20">
           <h2 className="text-xl font-serif font-bold tracking-wide text-white">Admin Panel</h2>
-          <p className="text-[10px] uppercase tracking-widest text-blue-200 mt-1">GKPS Tangerang</p>
+          <div className="flex justify-between items-center mt-1">
+             <p className="text-[10px] uppercase tracking-widest text-blue-200">GKPS Tangerang</p>
+             <span className="text-[10px] bg-blue-800 px-1.5 py-0.5 rounded text-blue-200">v{APP_VERSION}</span>
+          </div>
           <div className="mt-3 flex items-center gap-2">
              <div className="w-2 h-2 rounded-full bg-green-400"></div>
              <p className="text-xs font-bold text-blue-100 truncate w-40">{currentUser.fullName}</p>

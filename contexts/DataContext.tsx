@@ -1,58 +1,60 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { ServiceSchedule, Sermon, NewsItem, DataContextType, NavItem, HeroData, AboutData, ContactData, CommunityGroup, User } from '../types';
-import { SERVICE_SCHEDULES, RECENT_SERMONS, NEWS_ITEMS, NAV_ITEMS, DEFAULT_HERO, DEFAULT_ABOUT, DEFAULT_CONTACT, COMMUNITY_GROUPS, DEFAULT_USERS } from '../constants';
+import { 
+  SERVICE_SCHEDULES, RECENT_SERMONS, NEWS_ITEMS, NAV_ITEMS, 
+  DEFAULT_HERO, DEFAULT_ABOUT, DEFAULT_CONTACT, COMMUNITY_GROUPS, 
+  DEFAULT_USERS, APP_VERSION 
+} from '../constants';
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
-export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // --- EXISTING STATE ---
-  const [schedules, setSchedules] = useState<ServiceSchedule[]>(() => {
-    const saved = localStorage.getItem('gkps_schedules');
-    return saved ? JSON.parse(saved) : SERVICE_SCHEDULES;
-  });
-
-  const [sermons, setSermons] = useState<Sermon[]>(() => {
-    const saved = localStorage.getItem('gkps_sermons');
-    return saved ? JSON.parse(saved) : RECENT_SERMONS;
-  });
-
-  const [news, setNews] = useState<NewsItem[]>(() => {
-    const saved = localStorage.getItem('gkps_news');
-    return saved ? JSON.parse(saved) : NEWS_ITEMS;
-  });
-
-  const [navItems, setNavItems] = useState<NavItem[]>(() => {
-    const saved = localStorage.getItem('gkps_nav_items');
-    return saved ? JSON.parse(saved) : NAV_ITEMS;
-  });
+// Helper untuk load data yang aman terhadap versi
+const initializeState = <T,>(key: string, defaultValue: T): T => {
+  if (typeof window === 'undefined') return defaultValue;
   
-  const [communityGroups, setCommunityGroups] = useState<CommunityGroup[]>(() => {
-    const saved = localStorage.getItem('gkps_community');
-    return saved ? JSON.parse(saved) : COMMUNITY_GROUPS;
-  });
+  const storedVersion = localStorage.getItem('gkps_version');
+  // Jika versi beda, jangan pakai data lokal (return default)
+  if (storedVersion !== APP_VERSION) {
+    return defaultValue; 
+  }
+  
+  const saved = localStorage.getItem(key);
+  return saved ? JSON.parse(saved) : defaultValue;
+};
 
-  // --- USER MANAGEMENT STATE ---
-  const [users, setUsers] = useState<User[]>(() => {
-    const saved = localStorage.getItem('gkps_users');
-    return saved ? JSON.parse(saved) : DEFAULT_USERS;
-  });
+export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  // Update versi saat mount
+  useEffect(() => {
+    const storedVersion = localStorage.getItem('gkps_version');
+    if (storedVersion !== APP_VERSION) {
+      // Bersihkan data lama jika versi berubah
+      localStorage.removeItem('gkps_schedules');
+      localStorage.removeItem('gkps_sermons');
+      localStorage.removeItem('gkps_news');
+      localStorage.removeItem('gkps_nav_items');
+      localStorage.removeItem('gkps_community');
+      localStorage.removeItem('gkps_users');
+      localStorage.removeItem('gkps_hero');
+      localStorage.removeItem('gkps_about');
+      localStorage.removeItem('gkps_contact');
+      
+      localStorage.setItem('gkps_version', APP_VERSION);
+      // Data sudah di-reset via initializeState logic saat render awal
+    }
+  }, []);
 
-  // --- NEW STATE FOR PAGE CONTENT ---
-  const [heroData, setHeroData] = useState<HeroData>(() => {
-    const saved = localStorage.getItem('gkps_hero');
-    return saved ? JSON.parse(saved) : DEFAULT_HERO;
-  });
-
-  const [aboutData, setAboutData] = useState<AboutData>(() => {
-    const saved = localStorage.getItem('gkps_about');
-    return saved ? JSON.parse(saved) : DEFAULT_ABOUT;
-  });
-
-  const [contactData, setContactData] = useState<ContactData>(() => {
-    const saved = localStorage.getItem('gkps_contact');
-    return saved ? { ...DEFAULT_CONTACT, ...JSON.parse(saved) } : DEFAULT_CONTACT;
-  });
+  // --- STATE ---
+  // Menggunakan initializeState agar otomatis pakai Default jika versi baru
+  const [schedules, setSchedules] = useState<ServiceSchedule[]>(() => initializeState('gkps_schedules', SERVICE_SCHEDULES));
+  const [sermons, setSermons] = useState<Sermon[]>(() => initializeState('gkps_sermons', RECENT_SERMONS));
+  const [news, setNews] = useState<NewsItem[]>(() => initializeState('gkps_news', NEWS_ITEMS));
+  const [navItems, setNavItems] = useState<NavItem[]>(() => initializeState('gkps_nav_items', NAV_ITEMS));
+  const [communityGroups, setCommunityGroups] = useState<CommunityGroup[]>(() => initializeState('gkps_community', COMMUNITY_GROUPS));
+  const [users, setUsers] = useState<User[]>(() => initializeState('gkps_users', DEFAULT_USERS));
+  const [heroData, setHeroData] = useState<HeroData>(() => initializeState('gkps_hero', DEFAULT_HERO));
+  const [aboutData, setAboutData] = useState<AboutData>(() => initializeState('gkps_about', DEFAULT_ABOUT));
+  const [contactData, setContactData] = useState<ContactData>(() => initializeState('gkps_contact', DEFAULT_CONTACT));
 
   // --- EFFECTS FOR SAVING ---
   useEffect(() => localStorage.setItem('gkps_schedules', JSON.stringify(schedules)), [schedules]);
@@ -61,7 +63,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => localStorage.setItem('gkps_nav_items', JSON.stringify(navItems)), [navItems]);
   useEffect(() => localStorage.setItem('gkps_community', JSON.stringify(communityGroups)), [communityGroups]);
   useEffect(() => localStorage.setItem('gkps_users', JSON.stringify(users)), [users]);
-  
   useEffect(() => localStorage.setItem('gkps_hero', JSON.stringify(heroData)), [heroData]);
   useEffect(() => localStorage.setItem('gkps_about', JSON.stringify(aboutData)), [aboutData]);
   useEffect(() => localStorage.setItem('gkps_contact', JSON.stringify(contactData)), [contactData]);
@@ -97,7 +98,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
   const deleteCommunityGroup = (id: number) => setCommunityGroups(communityGroups.filter(g => g.id !== id));
 
-  // --- USER FUNCTIONS ---
   const addUser = (user: User) => setUsers([...users, user]);
   const updateUser = (updatedUser: User) => {
     setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u));
