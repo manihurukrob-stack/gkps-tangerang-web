@@ -57,10 +57,10 @@ const SermonManager: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in-up">
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center pb-6 border-b border-gray-200">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">Manajemen Khotbah & Renungan</h1>
-          <p className="text-slate-500">Upload materi renungan baru atau kelola arsip lama.</p>
+          <h1 className="text-3xl font-bold text-slate-800">Manajemen Khotbah</h1>
+          <p className="text-slate-500 mt-1">Upload materi renungan baru atau kelola arsip lama.</p>
         </div>
       </header>
 
@@ -75,7 +75,7 @@ const SermonManager: React.FC = () => {
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Judul</label>
               <input 
                 type="text" 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue focus:ring-1 focus:ring-gkps-blue outline-none"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue focus:ring-1 focus:ring-gkps-blue outline-none transition-colors"
                 value={sermonForm.title}
                 onChange={e => setSermonForm({...sermonForm, title: e.target.value})}
                 required
@@ -85,7 +85,7 @@ const SermonManager: React.FC = () => {
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Pengkhotbah</label>
               <input 
                 type="text" 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors"
                 value={sermonForm.preacher}
                 onChange={e => setSermonForm({...sermonForm, preacher: e.target.value})}
                 required
@@ -97,7 +97,7 @@ const SermonManager: React.FC = () => {
                 <input 
                   type="text" 
                   placeholder="Contoh: 12 Nov 2023"
-                  className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
+                  className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors"
                   value={sermonForm.date}
                   onChange={e => setSermonForm({...sermonForm, date: e.target.value})}
                 />
@@ -106,7 +106,7 @@ const SermonManager: React.FC = () => {
                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Ayat Alkitab</label>
                 <input 
                   type="text" 
-                  className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
+                  className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors"
                   value={sermonForm.bibleVerse}
                   onChange={e => setSermonForm({...sermonForm, bibleVerse: e.target.value})}
                 />
@@ -134,7 +134,7 @@ const SermonManager: React.FC = () => {
                 
                 {sermonForm.imageUrl ? (
                   <div className="relative">
-                    <img src={sermonForm.imageUrl} alt="Preview" className="h-32 mx-auto object-cover rounded-sm shadow-sm" />
+                    <img src={sermonForm.imageUrl} alt="Preview" className="h-32 w-full object-cover rounded-sm shadow-sm" />
                     <button 
                       type="button"
                       onClick={(e) => {
@@ -161,12 +161,12 @@ const SermonManager: React.FC = () => {
             <div>
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Ringkasan</label>
               <textarea 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none h-24"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none h-24 transition-colors"
                 value={sermonForm.summary}
                 onChange={e => setSermonForm({...sermonForm, summary: e.target.value})}
               ></textarea>
             </div>
-            <button type="submit" className="w-full bg-gkps-blue text-white py-2 rounded-sm font-bold hover:bg-blue-900 transition-colors">
+            <button type="submit" className="w-full bg-gkps-blue text-white py-2.5 rounded-sm font-bold hover:bg-blue-900 transition-colors shadow-sm">
               Publikasikan
             </button>
           </form>
@@ -175,20 +175,20 @@ const SermonManager: React.FC = () => {
         {/* List Content */}
         <div className="lg:col-span-2 space-y-4">
           {sermons.map(sermon => (
-            <div key={sermon.id} className="bg-white p-4 rounded-sm shadow-sm border border-gray-100 flex gap-4 items-start">
+            <div key={sermon.id} className="bg-white p-4 rounded-sm shadow-sm border border-gray-100 flex gap-4 items-start hover:border-gkps-blue/30 transition-colors">
               <img src={sermon.imageUrl} alt={sermon.title} className="w-24 h-24 object-cover rounded-sm bg-gray-200" />
               <div className="flex-1">
                 <div className="flex justify-between items-start">
                   <h4 className="font-bold text-slate-800 text-lg">{sermon.title}</h4>
                   <button 
                     onClick={() => { if(window.confirm('Hapus renungan ini?')) deleteSermon(sermon.id) }}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
+                    className="text-gray-400 hover:text-red-500 transition-colors p-1"
                   >
                     <Trash2 size={18} />
                   </button>
                 </div>
                 <p className="text-sm text-gkps-blue font-medium mb-1">{sermon.preacher} • {sermon.date}</p>
-                <p className="text-sm text-gray-500 line-clamp-2">{sermon.summary}</p>
+                <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{sermon.summary}</p>
               </div>
             </div>
           ))}

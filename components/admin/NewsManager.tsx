@@ -56,10 +56,10 @@ const NewsManager: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in-up">
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center pb-6 border-b border-gray-200">
         <div>
           <h1 className="text-3xl font-bold text-slate-800">Manajemen Warta Jemaat</h1>
-          <p className="text-slate-500">Kelola pengumuman, kegiatan, dan berita duka/sukacita.</p>
+          <p className="text-slate-500 mt-1">Kelola pengumuman, kegiatan, dan berita duka/sukacita.</p>
         </div>
       </header>
 
@@ -73,7 +73,7 @@ const NewsManager: React.FC = () => {
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Judul Warta</label>
               <input 
                 type="text" 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors"
                 value={newsForm.title}
                 onChange={e => setNewsForm({...newsForm, title: e.target.value})}
                 required
@@ -82,7 +82,7 @@ const NewsManager: React.FC = () => {
             <div>
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Kategori</label>
               <select 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none bg-white"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none bg-white transition-colors"
                 value={newsForm.category}
                 onChange={e => setNewsForm({...newsForm, category: e.target.value})}
               >
@@ -97,7 +97,7 @@ const NewsManager: React.FC = () => {
               <input 
                 type="text" 
                 placeholder="Contoh: 15 Nov 2023"
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none transition-colors"
                 value={newsForm.date}
                 onChange={e => setNewsForm({...newsForm, date: e.target.value})}
               />
@@ -124,7 +124,7 @@ const NewsManager: React.FC = () => {
                 
                 {newsForm.imageUrl ? (
                   <div className="relative">
-                    <img src={newsForm.imageUrl} alt="Preview" className="h-32 mx-auto object-cover rounded-sm shadow-sm" />
+                    <img src={newsForm.imageUrl} alt="Preview" className="h-32 w-full object-cover rounded-sm shadow-sm" />
                     <button 
                       type="button"
                       onClick={(e) => {
@@ -151,13 +151,13 @@ const NewsManager: React.FC = () => {
             <div>
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Isi Berita</label>
               <textarea 
-                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none h-32"
+                className="w-full p-2 border border-gray-300 rounded-sm focus:border-gkps-blue outline-none h-32 transition-colors"
                 value={newsForm.content}
                 onChange={e => setNewsForm({...newsForm, content: e.target.value})}
                 required
               ></textarea>
             </div>
-              <button type="submit" className="w-full bg-gkps-blue text-white py-2 rounded-sm font-bold hover:bg-blue-900 transition-colors">
+              <button type="submit" className="w-full bg-gkps-blue text-white py-2.5 rounded-sm font-bold hover:bg-blue-900 transition-colors shadow-sm">
               Terbitkan Berita
             </button>
           </form>
@@ -165,10 +165,10 @@ const NewsManager: React.FC = () => {
 
         <div className="lg:col-span-2 space-y-4">
             {news.map(item => (
-            <div key={item.id} className="bg-white p-5 rounded-sm shadow-sm border border-gray-100 relative">
+            <div key={item.id} className="bg-white p-5 rounded-sm shadow-sm border border-gray-100 relative hover:border-gkps-blue/30 transition-colors">
               <button 
                 onClick={() => { if(window.confirm('Hapus berita ini?')) deleteNews(item.id) }}
-                className="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition-colors z-10"
+                className="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition-colors z-10 p-1"
               >
                 <Trash2 size={18} />
               </button>

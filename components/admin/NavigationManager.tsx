@@ -17,10 +17,10 @@ const NavigationManager: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in-up">
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center pb-6 border-b border-gray-200">
         <div>
           <h1 className="text-3xl font-bold text-slate-800">Manajemen Navigasi</h1>
-          <p className="text-slate-500">Ubah label, link, atau tambah menu baru pada website.</p>
+          <p className="text-slate-500 mt-1">Ubah label, link, atau tambah menu baru pada website.</p>
         </div>
       </header>
 
