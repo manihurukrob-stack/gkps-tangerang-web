@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar } from 'lucide-react';
+import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar, ChevronRight } from 'lucide-react';
 import SermonManager from './SermonManager';
 import NewsManager from './NewsManager';
 import NavigationManager from './NavigationManager';
@@ -13,92 +13,61 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState<'sermons' | 'news' | 'navigation' | 'content' | 'schedule'>('sermons');
 
+  const menuItems = [
+    { id: 'sermons', label: 'Manajemen Khotbah', icon: BookOpen },
+    { id: 'news', label: 'Warta Jemaat', icon: Newspaper },
+    { id: 'content', label: 'Halaman Utama', icon: Layout },
+    { id: 'schedule', label: 'Jadwal Ibadah', icon: Calendar },
+    { id: 'navigation', label: 'Navigasi Menu', icon: MenuIcon },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-100 flex font-sans">
+    <div className="min-h-screen bg-slate-50 flex font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-gkps-blue text-white flex flex-col fixed h-full z-10 shadow-lg overflow-y-auto">
-        <div className="p-6 border-b border-blue-800">
-          <h2 className="text-xl font-serif font-bold">Admin Panel</h2>
-          <p className="text-xs text-blue-200 mt-1">GKPS Tangerang</p>
+      <aside className="w-64 bg-[#1e3a8a] text-white flex flex-col fixed h-full z-20 shadow-xl">
+        <div className="h-20 flex flex-col justify-center px-6 border-b border-blue-800 bg-blue-900/20">
+          <h2 className="text-xl font-serif font-bold tracking-wide text-white">Admin Panel</h2>
+          <p className="text-[10px] uppercase tracking-widest text-blue-200 mt-1">GKPS Tangerang</p>
         </div>
-        <nav className="flex-1 py-4 space-y-1">
-          <button 
-            onClick={() => setActiveTab('sermons')}
-            className={`w-full flex items-center px-6 py-4 transition-all duration-200 relative group
-              ${activeTab === 'sermons' ? 'bg-blue-900 text-white shadow-inner' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}
-          >
-            {activeTab === 'sermons' && (
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gkps-gold animate-pulse" />
-            )}
-            <BookOpen size={20} className={`mr-3 ${activeTab === 'sermons' ? 'text-gkps-gold' : ''}`} />
-            <span className="font-medium">Manajemen Khotbah</span>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('news')}
-            className={`w-full flex items-center px-6 py-4 transition-all duration-200 relative group
-              ${activeTab === 'news' ? 'bg-blue-900 text-white shadow-inner' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}
-          >
-             {activeTab === 'news' && (
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gkps-gold animate-pulse" />
-            )}
-            <Newspaper size={20} className={`mr-3 ${activeTab === 'news' ? 'text-gkps-gold' : ''}`} />
-            <span className="font-medium">Warta Jemaat</span>
-          </button>
-          
-          <div className="my-2 border-t border-blue-800/50 mx-4"></div>
-          
-          <button 
-            onClick={() => setActiveTab('content')}
-            className={`w-full flex items-center px-6 py-4 transition-all duration-200 relative group
-              ${activeTab === 'content' ? 'bg-blue-900 text-white shadow-inner' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}
-          >
-             {activeTab === 'content' && (
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gkps-gold animate-pulse" />
-            )}
-            <Layout size={20} className={`mr-3 ${activeTab === 'content' ? 'text-gkps-gold' : ''}`} />
-            <span className="font-medium">Halaman Utama</span>
-          </button>
-
-          <button 
-            onClick={() => setActiveTab('schedule')}
-            className={`w-full flex items-center px-6 py-4 transition-all duration-200 relative group
-              ${activeTab === 'schedule' ? 'bg-blue-900 text-white shadow-inner' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}
-          >
-             {activeTab === 'schedule' && (
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gkps-gold animate-pulse" />
-            )}
-            <Calendar size={20} className={`mr-3 ${activeTab === 'schedule' ? 'text-gkps-gold' : ''}`} />
-            <span className="font-medium">Jadwal Ibadah</span>
-          </button>
-
-          <button 
-            onClick={() => setActiveTab('navigation')}
-            className={`w-full flex items-center px-6 py-4 transition-all duration-200 relative group
-              ${activeTab === 'navigation' ? 'bg-blue-900 text-white shadow-inner' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}
-          >
-             {activeTab === 'navigation' && (
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gkps-gold animate-pulse" />
-            )}
-            <MenuIcon size={20} className={`mr-3 ${activeTab === 'navigation' ? 'text-gkps-gold' : ''}`} />
-            <span className="font-medium">Navigasi Menu</span>
-          </button>
+        
+        <nav className="flex-1 py-6 space-y-1 overflow-y-auto">
+          {menuItems.map((item) => (
+            <button 
+              key={item.id}
+              onClick={() => setActiveTab(item.id as any)}
+              className={`w-full flex items-center px-6 py-3.5 transition-all duration-200 relative group
+                ${activeTab === item.id 
+                  ? 'bg-blue-800/50 text-white' 
+                  : 'text-blue-100 hover:bg-blue-800 hover:text-white'}`}
+            >
+              {activeTab === item.id && (
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
+              )}
+              <item.icon size={18} className={`mr-3 ${activeTab === item.id ? 'text-amber-400' : 'text-blue-300'}`} />
+              <span className={`text-sm font-medium ${activeTab === item.id ? 'font-bold' : ''}`}>
+                {item.label}
+              </span>
+              {activeTab === item.id && (
+                <ChevronRight size={14} className="ml-auto text-amber-400 opacity-50" />
+              )}
+            </button>
+          ))}
         </nav>
         
         <div className="p-4 border-t border-blue-800 bg-blue-900/30">
           <button 
             onClick={onLogout}
-            className="w-full flex items-center justify-center p-3 text-red-300 hover:bg-red-900/50 hover:text-red-100 rounded-sm transition-colors border border-transparent hover:border-red-900/50"
+            className="w-full flex items-center justify-center p-2.5 text-red-200 hover:bg-red-900/30 hover:text-white rounded-sm transition-colors text-sm font-bold"
           >
-            <LogOut size={18} className="mr-2" />
+            <LogOut size={16} className="mr-2" />
             Keluar
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-8 bg-slate-100">
-        <div className="max-w-6xl mx-auto">
+      <main className="flex-1 ml-64 p-8 lg:p-12">
+        <div className="max-w-7xl mx-auto">
           {activeTab === 'sermons' && <SermonManager />}
           {activeTab === 'news' && <NewsManager />}
           {activeTab === 'content' && <ContentManager />}
