@@ -1,4 +1,5 @@
-import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData } from './types';
+
+import { NavItem, ServiceSchedule, Sermon, NewsItem, HeroData, AboutData, ContactData, CommunityGroup } from './types';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Beranda', href: '#home' },
@@ -6,6 +7,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Jadwal Ibadah', href: '#schedule' },
   { label: 'Renungan', href: '#sermons' },
   { label: 'Warta Jemaat', href: '#news' },
+  { label: 'Sahabat', href: '#sahabat' },
   { label: 'Kontak', href: '#contact' },
 ];
 
@@ -94,6 +96,27 @@ export const NEWS_ITEMS: NewsItem[] = [
   }
 ];
 
+export const COMMUNITY_GROUPS: CommunityGroup[] = [
+  {
+    id: 1,
+    name: "Seksi Wanita GKPS",
+    description: "Persekutuan kaum ibu yang aktif dalam pelayanan sosial dan paduan suara.",
+    imageUrl: "https://picsum.photos/800/600?random=20"
+  },
+  {
+    id: 2,
+    name: "Seksi Bapa GKPS",
+    description: "Wadah pelayanan kaum bapak untuk bertumbuh dalam iman dan kepemimpinan keluarga.",
+    imageUrl: "https://picsum.photos/800/600?random=21"
+  },
+  {
+    id: 3,
+    name: "Seksi Pemuda (Namaposo)",
+    description: "Generasi penerus gereja yang dinamis, kreatif, dan bersemangat dalam memuji Tuhan.",
+    imageUrl: "https://picsum.photos/800/600?random=22"
+  }
+];
+
 export const DEFAULT_HERO: HeroData = {
   welcomeText: "Syalom, Selamat Datang di Website Resmi",
   title: "Gereja Kristen Protestan",
@@ -116,5 +139,7 @@ export const DEFAULT_CONTACT: ContactData = {
   phone: "(021) 555-XXXX",
   email: "sekretariat@gkpstangerang.org",
   dailyVerse: "\"Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.\"",
-  dailyVerseRef: "Matius 6:33"
+  dailyVerseRef: "Matius 6:33",
+  footerTitle: "GKPS Tangerang",
+  footerDescription: "Gereja yang hidup, bertumbuh, dan berbuah bagi kemuliaan Tuhan. Melayani di tengah kota Tangerang dengan semangat kekeluargaan."
 };

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { Save, Upload, Layout, Info, Phone } from 'lucide-react';
@@ -194,6 +195,20 @@ const ContentManager: React.FC = () => {
                   <div className="col-span-2">
                     <div className="bg-blue-50/50 p-6 rounded-sm border border-blue-100">
                       <h4 className="text-sm font-bold text-blue-900 mb-4 flex items-center"><Info size={16} className="mr-2"/> Pengaturan Footer</h4>
+                      
+                      <div className="grid gap-4 mb-6 border-b border-blue-200 pb-6">
+                           <div>
+                              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Judul Footer (Brand)</label>
+                              <input type="text" className="w-full p-2.5 border border-gray-300 rounded-sm bg-white focus:border-gkps-blue outline-none" 
+                                  value={localContact.footerTitle || ''} onChange={e => setLocalContact({...localContact, footerTitle: e.target.value})} placeholder="Contoh: GKPS Tangerang" />
+                          </div>
+                          <div>
+                              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Deskripsi Singkat</label>
+                              <textarea className="w-full p-2.5 border border-gray-300 rounded-sm bg-white focus:border-gkps-blue outline-none h-24" 
+                                  value={localContact.footerDescription || ''} onChange={e => setLocalContact({...localContact, footerDescription: e.target.value})} placeholder="Deskripsi singkat gereja..." />
+                          </div>
+                      </div>
+
                       <div className="grid gap-4">
                           <div>
                               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Ayat Harian</label>

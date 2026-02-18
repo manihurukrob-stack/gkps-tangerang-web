@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -5,6 +6,7 @@ import About from './components/About';
 import ServiceSchedule from './components/ServiceSchedule';
 import SermonSection from './components/SermonSection';
 import NewsSection from './components/NewsSection';
+import CommunitySection from './components/CommunitySection';
 import Footer from './components/Footer';
 import Dashboard from './components/admin/Dashboard';
 import { DataProvider } from './contexts/DataContext';
@@ -41,6 +43,7 @@ const App: React.FC = () => {
           <Hero />
           <About />
           <ServiceSchedule />
+          <CommunitySection />
           <SermonSection />
           <NewsSection />
         </main>

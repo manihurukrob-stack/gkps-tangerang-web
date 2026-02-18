@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Lock } from 'lucide-react';
 import { useData } from '../contexts/DataContext';
@@ -16,9 +17,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
           
           {/* Brand */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-serif font-bold text-white">GKPS Tangerang</h3>
+            <h3 className="text-2xl font-serif font-bold text-white">{contactData.footerTitle || "GKPS Tangerang"}</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Gereja yang hidup, bertumbuh, dan berbuah bagi kemuliaan Tuhan. Melayani di tengah kota Tangerang dengan semangat kekeluargaan.
+              {contactData.footerDescription || "Gereja yang hidup, bertumbuh, dan berbuah bagi kemuliaan Tuhan. Melayani di tengah kota Tangerang dengan semangat kekeluargaan."}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-slate-400 hover:text-white transition-colors"><Facebook size={20} /></a>
@@ -72,7 +73,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenLogin }) => {
       
       <div className="bg-black py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <p>&copy; {new Date().getFullYear()} GKPS Tangerang. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {contactData.footerTitle || "GKPS Tangerang"}. All rights reserved.</p>
           <div className="flex items-center gap-4 mt-2 md:mt-0">
              <p>Design inspired by GRII Pusat & GKPS Org</p>
              <span className="text-slate-700">|</span>

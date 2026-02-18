@@ -1,3 +1,4 @@
+
 export interface NavItem {
   label: string;
   href: string;
@@ -30,6 +31,13 @@ export interface NewsItem {
   imageUrl?: string;
 }
 
+export interface CommunityGroup {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
 // New Types for Page Content
 export interface HeroData {
   welcomeText: string;
@@ -54,6 +62,8 @@ export interface ContactData {
   email: string;
   dailyVerse: string;
   dailyVerseRef: string;
+  footerTitle?: string;
+  footerDescription?: string;
 }
 
 export type DataContextType = {
@@ -61,6 +71,7 @@ export type DataContextType = {
   sermons: Sermon[];
   news: NewsItem[];
   navItems: NavItem[];
+  communityGroups: CommunityGroup[];
   heroData: HeroData;
   aboutData: AboutData;
   contactData: ContactData;
@@ -77,6 +88,9 @@ export type DataContextType = {
   addNavItem: (item: NavItem) => void;
   deleteNavItem: (index: number) => void;
   updateNavItem: (index: number, item: NavItem) => void;
+
+  addCommunityGroup: (group: CommunityGroup) => void;
+  deleteCommunityGroup: (id: number) => void;
   
   updateHeroData: (data: HeroData) => void;
   updateAboutData: (data: AboutData) => void;

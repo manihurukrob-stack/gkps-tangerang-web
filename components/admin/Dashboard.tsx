@@ -1,23 +1,26 @@
+
 import React, { useState } from 'react';
-import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar, ChevronRight } from 'lucide-react';
+import { BookOpen, Newspaper, LogOut, Menu as MenuIcon, Layout, Calendar, ChevronRight, Users } from 'lucide-react';
 import SermonManager from './SermonManager';
 import NewsManager from './NewsManager';
 import NavigationManager from './NavigationManager';
 import ContentManager from './ContentManager';
 import ScheduleManager from './ScheduleManager';
+import CommunityManager from './CommunityManager';
 
 interface DashboardProps {
   onLogout: () => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<'sermons' | 'news' | 'navigation' | 'content' | 'schedule'>('sermons');
+  const [activeTab, setActiveTab] = useState<'sermons' | 'news' | 'navigation' | 'content' | 'schedule' | 'community'>('sermons');
 
   const menuItems = [
     { id: 'sermons', label: 'Manajemen Khotbah', icon: BookOpen },
     { id: 'news', label: 'Warta Jemaat', icon: Newspaper },
     { id: 'content', label: 'Halaman Utama', icon: Layout },
     { id: 'schedule', label: 'Jadwal Ibadah', icon: Calendar },
+    { id: 'community', label: 'Manajemen Sahabat', icon: Users },
     { id: 'navigation', label: 'Navigasi Menu', icon: MenuIcon },
   ];
 
@@ -72,6 +75,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
           {activeTab === 'news' && <NewsManager />}
           {activeTab === 'content' && <ContentManager />}
           {activeTab === 'schedule' && <ScheduleManager />}
+          {activeTab === 'community' && <CommunityManager />}
           {activeTab === 'navigation' && <NavigationManager />}
         </div>
       </main>
