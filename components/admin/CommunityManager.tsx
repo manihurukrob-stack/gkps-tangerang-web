@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { CommunityGroup, CommunityActivity, User } from '../../types';
-import { Plus, Trash2, Upload, X, Users, ClipboardList, Calendar, Edit2, Save } from 'lucide-react';
+import { Plus, Trash2, Upload, Users, ClipboardList, Calendar, Edit2, Save } from 'lucide-react';
 
 interface CommunityManagerProps {
   currentUser?: User;
